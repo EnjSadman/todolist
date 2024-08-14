@@ -1,5 +1,5 @@
 import { todosType } from "@/lib/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface TodosState {
   todos: todosType[];
@@ -9,11 +9,19 @@ interface TodosState {
 const initialState : TodosState = {
   todos : [],
 }
-
 const TodosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    initializeTodos: (state , action : PayloadAction<todosType[]>) => {
+      state.todos = [...action.payload];
+    },
+    updateStatus:(state, action : PayloadAction<todosType>) => {
+      const temp = [...state.todos];
+      temp[temp.findIndex( todo => todo.id == action.payload.id)] = action.payload;
+      state.todos = [...temp]
+
+    },
 
   },
 })
@@ -21,5 +29,7 @@ const TodosSlice = createSlice({
 //actions
 
 //dispatch
+
+export const {initializeTodos, updateStatus} = TodosSlice.actions;
 
 export default TodosSlice.reducer;

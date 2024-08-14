@@ -14,12 +14,18 @@ export enum fetchType {
   users = "users/",
 }
 
-export type PostPutRequestBody = {
+export type PostPatchRequestBody = {
   id: number,
   title: string,
   body: string,
   userId: number,
   completed: boolean
+}
+
+export type PutRequestBody = {
+  title?: string,
+  userId?: number,
+  completed?: boolean
 }
 
 export type todosType = {

@@ -1,16 +1,19 @@
 "use client"
 
-import Image from "next/image";
 import styles from "./page.module.css";
 import dataFetcher from "./Components/dataFetcher/dataFetcher";
 import { fetchMethods, fetchType, todosType } from "@/lib/types";
 import { useEffect, useState } from "react";
-import StoreProvider from "./Components/storeProvider/storeProvider";
 import SingleTodo from "./Components/singleTodo/singleTodo";
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { initializeTodos } from "@/lib/features/todos/todosSlice";
 
 export default function Home() {
-  const [todos, setTodos] = useState<todosType[]>([]);
+  const todos = useSelector((state : RootState) => state.todos.todos);
+  const dispatch = useDispatch();
+  //const [todosList, setTodosList] = useState<>([]);
 
   const fetchData = async () => {
     let result  = await dataFetcher({
@@ -18,18 +21,17 @@ export default function Home() {
       method: fetchMethods.get
     }).then(async res => {
       const response : todosType[] = await res?.json()
-      setTodos(response);
+      dispatch(initializeTodos(response));
     })
   } 
   useEffect (() => {
     fetchData();
-    console.log(fetchData());
-  }, [])
+  }, []);
+
   return (
     <main className={styles.main}>
-      <StoreProvider todos={todos}>
         <div>
-          
+
         </div>
         <div>
           <button>
@@ -37,11 +39,10 @@ export default function Home() {
           </button>
         </div>
         <div className={`${styles.container, styles.todos__container}`}>
-        {todos.map(el => {
+        {  todos.map(el => {
           return(<SingleTodo key={uuidv4()} props={el} />)     
-        })} 
+        })   }
         </div>
-      </StoreProvider>
     </main>
   );
 }

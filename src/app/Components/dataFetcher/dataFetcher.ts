@@ -1,12 +1,14 @@
-import { PostPutRequestBody, fetchMethods } from "@/lib/types";
+"use client"
+
+import { PostPatchRequestBody, PutRequestBody, fetchMethods } from "@/lib/types";
 
 const baseUrl = "https://jsonplaceholder.typicode.com/";
 
 type Args = {
   type: string;
-  id?: string,
+  id?: number,
   method: fetchMethods;
-  requestBody?: PostPutRequestBody;
+  requestBody?: PostPatchRequestBody | PutRequestBody;
 }
 
 export default async function dataFetcher(parameters : Args) {
@@ -23,7 +25,13 @@ export default async function dataFetcher(parameters : Args) {
       return result;
     }
     case fetchMethods.put: {
-      
+      result = await fetch(`${baseUrl}${parameters.type}${parameters.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(parameters.requestBody),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        }
+        })
     return result;
     }
     case fetchMethods.delete: {

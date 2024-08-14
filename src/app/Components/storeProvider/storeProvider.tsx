@@ -7,10 +7,8 @@ import { todosType } from '@/lib/types';
 
 export default function StoreProvider({
   children,
-  todos,
 }: {
   children: React.ReactNode
-  todos: todosType[]
 }) {
   const storeRef = useRef<AppStore>()
   if (!storeRef.current) {
