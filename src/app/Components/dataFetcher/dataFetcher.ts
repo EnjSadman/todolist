@@ -20,7 +20,6 @@ export default async function dataFetcher(parameters : Args) {
           'Content-type': 'application/json; charset=UTF-8',
         }
       })
-      result = await result.json();
       return result;
     }
     case fetchMethods.put: {
@@ -31,16 +30,14 @@ export default async function dataFetcher(parameters : Args) {
       result = await fetch(`${baseUrl}${parameters.type}${parameters.id}`, {
         method: 'DELETE'
       })
-      result = await result.json();
     return result;
     }
     default: {
       if (parameters.id) {
-        result = (await fetch(`${baseUrl}${parameters.type}${parameters.id}`)).json()
+        result = (await fetch(`${baseUrl}${parameters.type}${parameters.id}`))
       } else {
-        result = (await fetch(`${baseUrl}${parameters.type}`)).json()
+        result = (await fetch(`${baseUrl}${parameters.type}`))
       }
-      result = await result;
     return result;
   }
   }
