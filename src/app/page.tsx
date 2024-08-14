@@ -28,6 +28,14 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <StoreProvider todos={todos}>
+        <div>
+          
+        </div>
+        <div>
+          <button>
+            add todo
+          </button>
+        </div>
         <div className={`${styles.container, styles.todos__container}`}>
         {todos.map(el => {
           return(<SingleTodo key={uuidv4()} props={el} />)     
