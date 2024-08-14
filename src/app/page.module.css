@@ -7,3 +7,9 @@
   max-width: 1128px;
 
 }
+
+.todos__container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}

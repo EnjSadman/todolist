@@ -1,0 +1,33 @@
+.todo {
+  display: flex;
+  justify-content: space-between;
+
+  background-color: white;
+
+  padding: 40px;
+  border: 1px solid #ededed;
+
+  cursor: pointer;
+}
+
+.todo__info {
+  font-size: 16px;
+}
+
+.todo__info__username {
+  color: gray;
+  font-size: 24px;
+}
+
+.todo__status {
+  display: flex;
+  align-items: center;
+}
+
+.completed {
+  color: greenyellow;
+}
+
+.notcompleted {
+  color: red;
+}

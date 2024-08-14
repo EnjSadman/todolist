@@ -26,14 +26,13 @@ export default function Home() {
     console.log(fetchData());
   }, [])
   return (
-    <main className="main">
+    <main className={styles.main}>
       <StoreProvider todos={todos}>
-        <div className="todo__container container"></div>
+        <div className={`${styles.container, styles.todos__container}`}>
         {todos.map(el => {
-          //console.log
-          return(<SingleTodo key={uuidv4()} props={el} />)
-          
+          return(<SingleTodo key={uuidv4()} props={el} />)     
         })} 
+        </div>
       </StoreProvider>
     </main>
   );
