@@ -2,7 +2,6 @@
 
 import { fetchMethods, fetchType, todosType } from "@/lib/types"
 import styles from "./singleTodo.module.css";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateStatus } from "@/lib/features/todos/todosSlice";
 import dataFetcher from "../dataFetcher/dataFetcher";
@@ -12,7 +11,7 @@ interface Props {
 }
 
 function completion(props : todosType) {
-  const [isChecked, setChecked] = useState(props.completed);
+  const isChecked = props.completed;
   const dispatch = useDispatch();
   if (isChecked) {
     return (
@@ -38,7 +37,6 @@ function completion(props : todosType) {
     )
   } else {
     return (
-
       <div className="">
         <p className={styles.notcompleted}>not completed</p>
         <input type="checkbox" checked={isChecked} onChange={(event) => {

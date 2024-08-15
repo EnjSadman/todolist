@@ -1,12 +1,25 @@
+"use client"
+
+import { Dispatch, SetStateAction } from "react";
 import styles from "./modal.module.css";
 
-export default function Modal() {
+interface ModalProps {
+  isVisible: boolean;
+  setVisible: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Modal(props : ModalProps) {
+  console.log(props.isVisible)
   return(
-    <div>
-      <div>
+    <div className={`${styles.modal} ${styles.modal__backdrop} ${(props.isVisible) ? styles.modal__visible : styles.modal__nonvisible} `}>
+      <div className="">
         <input type="text" />
-        <button>Cancel</button>
-        <button>Save</button>
+        <button onClick={() => {
+          props.setVisible(false);
+        }}>Cancel</button>
+        <button onClick={() => {
+          props.setVisible(false);
+        }}>Save</button>
       </div>
     </div>
   )

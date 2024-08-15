@@ -1,6 +1,6 @@
 .main {
-  display: flex;
-  justify-content: center;
+  background-color: lightgray;
+  height: 100vh;
 }
 
 .container {
@@ -11,4 +11,12 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+}
+
+.no_owerflow {
+  overflow: hidden;
+}
+
+.overflow {
+  overflow: auto;
 }

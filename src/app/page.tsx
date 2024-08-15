@@ -9,11 +9,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { initializeTodos } from "@/lib/features/todos/todosSlice";
+import Modal from "./Components/modal/modal";
 
 export default function Home() {
   const todos = useSelector((state : RootState) => state.todos.todos);
   const dispatch = useDispatch();
-  //const [todosList, setTodosList] = useState<>([]);
+  const [search, setSearch] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const fetchData = async () => {
     let result  = await dataFetcher({
@@ -24,22 +26,29 @@ export default function Home() {
       dispatch(initializeTodos(response));
     })
   } 
+
+
   useEffect (() => {
     fetchData();
   }, []);
 
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} ${(isModalVisible) ? styles.no_owerflow : styles.overflow}`}>
+      <Modal isVisible={isModalVisible} setVisible={setIsModalVisible}/>
         <div>
-
+          <input type="text" onChange={(event) => {
+            setSearch(event.target.value);
+          }} value={search}/>
         </div>
         <div>
-          <button>
+          <button onClick={() => {
+            setIsModalVisible(true)
+          }}>
             add todo
           </button>
         </div>
         <div className={`${styles.container, styles.todos__container}`}>
-        {  todos.map(el => {
+        {  todos.filter(todo => todo.title.includes(search)).map(el => {
           return(<SingleTodo key={uuidv4()} props={el} />)     
         })   }
         </div>
