@@ -35,18 +35,22 @@ export default function Home() {
   return (
     <main className={`${styles.main} ${(isModalVisible) ? styles.no_owerflow : styles.overflow}`}>
       <Modal isVisible={isModalVisible} setVisible={setIsModalVisible}/>
-        <div>
-          <input type="text" onChange={(event) => {
+      <div className={styles.search_bar}>
+        <div className={styles.search_container}>
+          <input placeholder="Search" type="text" className={styles.search_input} onChange={(event) => {
             setSearch(event.target.value);
           }} value={search}/>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#888888"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </div>
-        <div>
-          <button onClick={() => {
+        <button
+          className="button-plain"
+           onClick={() => {
             setIsModalVisible(true)
           }}>
             add todo
           </button>
-        </div>
+      </div>
+        
         <div className={`${styles.container, styles.todos__container}`}>
         {  todos.filter(todo => todo.title.includes(search)).map(el => {
           return(<SingleTodo key={uuidv4()} props={el} />)     

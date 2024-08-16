@@ -1,12 +1,16 @@
 .modal {
-  position: sticky;
+  position: absolute;
   top: 0;
   left: 0;
+
+  justify-content: center;
+  align-items: center;
 
   background-color: rgb(0, 0, 0, 0.2);
 }
 
 .modal__backdrop {
+  z-index: 10;
   width: 100vw;
   height: 100vh;
 }
@@ -17,4 +21,15 @@
 
 .modal__nonvisible {
   display: none;
+}
+
+.modal_body {
+  min-width: 400px;
+  min-height: 400px;
+
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
