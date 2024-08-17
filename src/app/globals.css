@@ -39,6 +39,11 @@ button {
   border: none;
 }
 
+.button-green--disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 .button-plain {
   width: 250px;
   height: 64px;

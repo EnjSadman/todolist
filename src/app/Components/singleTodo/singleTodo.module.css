@@ -6,6 +6,14 @@
 
   padding: 40px;
   border: 1px solid #ededed;
+
+  transition: box-shadow 0.2s linear;
+
+  cursor: pointer;
+}
+
+.todo:hover {
+  box-shadow: 1px 1px 10px #000000;
 }
 
 .todo__info {
@@ -17,9 +25,16 @@
   font-size: 24px;
 }
 
+.completion_box {
+  display: flex;
+  gap: 16px;
+}
+
 .todo__status {
   display: flex;
   align-items: center;
+
+  gap: 16px;
 }
 
 .completed {
@@ -28,4 +43,16 @@
 
 .notcompleted {
   color: red;
+}
+
+.deletion_box {
+  width: 16px;
+  height: 16px;
+
+  transition: all 0.2s linear;
+}
+
+.deletion_box:hover {
+  width: 24px;
+  height: 24px;
 }

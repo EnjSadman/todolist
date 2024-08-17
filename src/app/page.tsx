@@ -2,7 +2,7 @@
 
 import styles from "./page.module.css";
 import dataFetcher from "./Components/dataFetcher/dataFetcher";
-import { fetchMethods, fetchType, todosType } from "@/lib/types";
+import { fetchMethods, fetchType, ModalState, todosType } from "@/lib/types";
 import { useEffect, useState } from "react";
 import SingleTodo from "./Components/singleTodo/singleTodo";
 import { v4 as uuidv4 } from 'uuid';
@@ -14,8 +14,23 @@ import Modal from "./Components/modal/modal";
 export default function Home() {
   const todos = useSelector((state : RootState) => state.todos.todos);
   const dispatch = useDispatch();
+
   const [search, setSearch] = useState("");
+
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalState, setModalState] = useState<ModalState>(ModalState.new);
+
+  const [editedTodo, setEditedTodo] = useState<todosType>(
+    {
+      id: 0,
+      userId: 0,
+      title: "",
+      completed: false,
+    }
+  );
+
+  const [lastTodoId, setLastTodoId] = useState(0);
+  const [lastUserId, setLastUserId] = useState(0);
 
   const fetchData = async () => {
     let result  = await dataFetcher({
@@ -32,9 +47,24 @@ export default function Home() {
     fetchData();
   }, []);
 
+  useEffect (() => {
+    setLastTodoId(Math.max(...todos.map(el => el.id)));
+    if (lastUserId == 0) {
+      setLastUserId(Math.max(...todos.map(el => el.userId)))
+    }
+  }, [todos]);
+
   return (
     <main className={`${styles.main} ${(isModalVisible) ? styles.no_owerflow : styles.overflow}`}>
-      <Modal isVisible={isModalVisible} setVisible={setIsModalVisible}/>
+      <Modal
+        modalAction={modalState}
+        todoToEdit={editedTodo}
+        isVisible={isModalVisible}
+        setVisible={setIsModalVisible}
+        lastUserId={lastUserId}
+        lastTodoId={lastTodoId}
+        setLastTodoId={setLastTodoId}
+      />
       <div className={styles.search_bar}>
         <div className={styles.search_container}>
           <input placeholder="Search" type="text" className={styles.search_input} onChange={(event) => {
@@ -53,7 +83,13 @@ export default function Home() {
         
         <div className={`${styles.container, styles.todos__container}`}>
         {  todos.filter(todo => todo.title.includes(search)).map(el => {
-          return(<SingleTodo key={uuidv4()} props={el} />)     
+          return(<SingleTodo
+              key={uuidv4()}
+              todo={el}
+              todoEditor={setEditedTodo}
+              setVisible={setIsModalVisible}
+              modalAction={setModalState}
+              />)     
         })   }
         </div>
     </main>

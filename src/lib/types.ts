@@ -34,3 +34,9 @@ export type todosType = {
   title: string,
   completed: boolean,
 }
+
+export enum ModalState {
+  new = "newTodo",
+  edit = "editTodo",
+  delete = "deleteTodo"
+}

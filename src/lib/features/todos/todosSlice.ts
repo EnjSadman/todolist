@@ -20,8 +20,13 @@ const TodosSlice = createSlice({
       const temp = [...state.todos];
       temp[temp.findIndex( todo => todo.id == action.payload.id)] = action.payload;
       state.todos = [...temp]
-
     },
+    addTodo:(state, action : PayloadAction<todosType>) => {
+      state.todos = [action.payload, ...state.todos];
+    },
+    deleteTodo:(state, action : PayloadAction<number>) => {
+      state.todos = [...state.todos.filter(el => el.id !== action.payload)]
+    }
 
   },
 })
