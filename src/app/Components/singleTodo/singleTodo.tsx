@@ -20,7 +20,11 @@ function completion(props : todosType) {
   if (isChecked) {
     return (
 
-      <div className={styles.completion_box}>
+      <div className={styles.completion_box}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
         <p className={styles.completed}>completed</p>
         <input type="checkbox" checked={isChecked} onChange={(event) => {
           dataFetcher({
@@ -41,7 +45,11 @@ function completion(props : todosType) {
     )
   } else {
     return (
-      <div className={styles.completion_box}>
+      <div className={styles.completion_box}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
         <p className={styles.notcompleted}>not completed</p>
         <input type="checkbox" checked={isChecked} onChange={(event) => {
           dataFetcher({

@@ -49,10 +49,10 @@ export default function Home() {
 
   useEffect (() => {
     setLastTodoId(Math.max(...todos.map(el => el.id)));
-    if (lastUserId == 0) {
+    if (lastUserId == 0 || lastUserId < 0) {
       setLastUserId(Math.max(...todos.map(el => el.userId)))
     }
-  }, [todos]);
+  }, [todos, lastUserId]);
 
   return (
     <main className={`${styles.main} ${(isModalVisible) ? styles.no_owerflow : styles.overflow}`}>
@@ -75,7 +75,8 @@ export default function Home() {
         <button
           className="button-plain"
            onClick={() => {
-            setIsModalVisible(true)
+            setIsModalVisible(true);
+            setModalState(ModalState.new)
           }}>
             add todo
           </button>

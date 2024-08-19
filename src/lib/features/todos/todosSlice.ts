@@ -26,6 +26,9 @@ const TodosSlice = createSlice({
     },
     deleteTodo:(state, action : PayloadAction<number>) => {
       state.todos = [...state.todos.filter(el => el.id !== action.payload)]
+    },
+    editTodo: (state, action : PayloadAction<todosType>) => {
+      state.todos[state.todos.findIndex(todo => todo.id == action.payload.id)] = action.payload;
     }
 
   },
@@ -35,6 +38,6 @@ const TodosSlice = createSlice({
 
 //dispatch
 
-export const {initializeTodos, updateStatus, addTodo, deleteTodo} = TodosSlice.actions;
+export const {initializeTodos, updateStatus, addTodo, deleteTodo, editTodo} = TodosSlice.actions;
 
 export default TodosSlice.reducer;

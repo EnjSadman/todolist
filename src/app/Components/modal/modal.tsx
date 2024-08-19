@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./modal.module.css";
 import { fetchMethods, fetchType, ModalState, todosType } from "@/lib/types";
 import { useDispatch } from "react-redux";
-import todosSlice, { deleteTodo } from "@/lib/features/todos/todosSlice";
+import todosSlice, { addTodo, deleteTodo, editTodo } from "@/lib/features/todos/todosSlice";
 import dataFetcher from "../dataFetcher/dataFetcher";
 
 interface ModalProps {
@@ -27,11 +27,14 @@ export default function Modal(props : ModalProps) {
   const dispatch = useDispatch();
 
   let timeout : NodeJS.Timeout;
+
   useEffect(() => {
-   if (props.todoToEdit.title.length > 1) {
+   if (props.todoToEdit.title.length > 1 && props.modalAction == ModalState.edit) {
     setTodoTitle(props.todoToEdit.title);
-   } 
-  })
+   } else {
+    setTodoTitle("");
+   }
+  }, [props])
 
   if (props.modalAction == ModalState.new) {
     return(
@@ -92,8 +95,11 @@ export default function Modal(props : ModalProps) {
               setTimeout(() => {
                 props.setVisible(false);
                 setTodoCreated(false);
-              }, 3000)
+              }, 3000);
+
+
   
+              dispatch(addTodo(todo))
             }}>Save</button>
           </div>
             </>
@@ -151,13 +157,19 @@ export default function Modal(props : ModalProps) {
               className={`button-green ${(todoTitle.length < 3) ? "button-green--disabled" : ""}`}
               disabled={todoTitle.length < 3}
               onClick={() => {
-              const todo : todosType = {
-                userId: props.lastUserId,
-                id: props.lastTodoId + 1,
-                title: todoTitle,
-                completed: false,
-              }
-              props.setLastTodoId(todo.id);
+                const todo = {
+                  id: props.todoToEdit.id,
+                  title: todoTitle,
+                  completed: props.todoToEdit.completed,
+                  userId: props.todoToEdit.userId
+                }
+              dataFetcher({
+                id: props.todoToEdit.id,
+                type: fetchType.todos,
+                method: fetchMethods.put,
+                requestBody: todo
+              })
+              dispatch(editTodo(todo));
               setTodoCreated(true);
               setTodoTitle("");
   
