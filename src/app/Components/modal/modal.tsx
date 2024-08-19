@@ -213,9 +213,9 @@ export default function Modal(props : ModalProps) {
           }}
         >
           <div>
-            <p>Are you sure, you want delete this todo</p>
+            <p>Are you sure, you want delete this todo?</p>
           </div>
-          <div>
+          <div className={styles.buttons}>
             <button
               className="button-green"
               onClick={() => {

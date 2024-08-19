@@ -11,7 +11,7 @@ If you want to run this project on your device
  run from terminal opened in project folder
  2. npm install
  3. npm run dev
- 4. open [http://localhost:3000/](http://localhost:3000/)
+ 4. open http://localhost:3000/
 ```
 
 ## Project details

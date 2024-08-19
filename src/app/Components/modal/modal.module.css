@@ -60,3 +60,8 @@
 .modal_input_invalid {
   border-color: red;
 }
+
+.buttons {
+  display:  flex;
+  gap: 16px;
+}
