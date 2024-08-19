@@ -42,6 +42,7 @@ export default function Modal(props : ModalProps) {
         className={`${styles.modal} ${styles.modal__backdrop} ${(props.isVisible) ? styles.modal__visible : styles.modal__nonvisible} `}
         onClick={() => {
           setTodoTitle("");
+          setTodoCreated(false);
           props.setVisible(false);
         }}
       >
@@ -122,6 +123,7 @@ export default function Modal(props : ModalProps) {
         className={`${styles.modal} ${styles.modal__backdrop} ${(props.isVisible) ? styles.modal__visible : styles.modal__nonvisible} `}
         onClick={() => {
           setTodoTitle("");
+          setTodoCreated(false);
           props.setVisible(false);
         }}
       >
@@ -200,6 +202,7 @@ export default function Modal(props : ModalProps) {
         className={`${styles.modal} ${styles.modal__backdrop} ${(props.isVisible) ? styles.modal__visible : styles.modal__nonvisible} `}
         onClick={() => {
           setTodoTitle("");
+
           props.setVisible(false);
         }}
       >
