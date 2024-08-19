@@ -1,10 +1,11 @@
 .todo {
   display: flex;
-  justify-content: space-between;
+
+  align-items: center;
 
   background-color: white;
 
-  padding: 40px;
+  padding: 16px 8px;
   border: 1px solid #ededed;
 
   transition: box-shadow 0.2s linear;
@@ -12,17 +13,19 @@
   cursor: pointer;
 }
 
-.todo:hover {
-  box-shadow: 1px 1px 10px #000000;
-}
-
 .todo__info {
   font-size: 16px;
 }
 
 .todo__info__username {
+  min-width: 100px;
+
   color: gray;
-  font-size: 24px;
+  font-size: 20px;
+}
+
+.todo__title {
+  width: 100%;
 }
 
 .completion_box {
@@ -38,11 +41,31 @@
 }
 
 .completed {
-  color: greenyellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 999999px;
+
+  min-width: 100px;
+  height: 36px;
+  background-color: #d0f4e0;
+  
+  color: #1ca558;
 }
 
 .notcompleted {
-  color: red;
+  min-width: 120px;
+  height: 36px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 999999px;
+
+  background-color: #fdcfdf;
+  color: #f43477;
 }
 
 .deletion_box {

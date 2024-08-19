@@ -25,7 +25,6 @@ function Completion(props : todosType) {
           event.stopPropagation();
         }}
       >
-        <p className={styles.completed}>completed</p>
         <input type="checkbox" checked={isChecked} onChange={(event) => {
           dataFetcher({
             method: fetchMethods.put,
@@ -50,7 +49,7 @@ function Completion(props : todosType) {
           event.stopPropagation();
         }}
       >
-        <p className={styles.notcompleted}>not completed</p>
+        
         <input type="checkbox" checked={isChecked} onChange={(event) => {
           dataFetcher({
             method: fetchMethods.put,
@@ -81,14 +80,17 @@ export default function SingleTodo(props : Props) {
       props.todoEditor(props.todo);
      }}
     >
-      <div className={styles.todo__info}>
-        <p className={styles.todo__info__username}>User {props.todo.userId}</p>
-        <p className="">{props.todo.title}</p>
-      </div>
-      <div className={styles.todo__status}>
-        {
+      {
           (props.todo.completed) ? Completion(props.todo) : Completion(props.todo)
-        }
+      }
+      <p className={styles.todo__info__username}>User {props.todo.userId}</p>
+      <p className={styles.todo__title}>{props.todo.title}</p>
+      {
+        (props.todo.completed) ? <p className={styles.completed}>completed</p> : <p className={styles.notcompleted}>not completed</p>
+      }
+      
+      <div className={styles.todo__status}>
+        
         <div className={styles.deletion_box}
           onClick={(event) => {
             event.stopPropagation();

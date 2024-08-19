@@ -83,6 +83,13 @@ export default function Home() {
       </div>
         
         <div className={`${styles.container, styles.todos__container}`}>
+          <div className={styles.table_heading}>
+            <div className={styles.table_heading__holder}></div>
+            <div className={styles.table_heading__user}>User</div>
+            <div className={styles.table_heading__title}>Title</div>
+            <div className={styles.table_heading__status}>Status</div>
+            <div className={styles.table_heading__holder}></div>
+          </div>
         {  todos.filter(todo => todo.title.includes(search)).map(el => {
           return(<SingleTodo
               key={uuidv4()}
