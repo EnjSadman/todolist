@@ -2,7 +2,10 @@
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./modal.module.css";
-import { ModalState, todosType } from "@/lib/types";
+import { fetchMethods, fetchType, ModalState, todosType } from "@/lib/types";
+import { useDispatch } from "react-redux";
+import todosSlice, { deleteTodo } from "@/lib/features/todos/todosSlice";
+import dataFetcher from "../dataFetcher/dataFetcher";
 
 interface ModalProps {
   isVisible: boolean;
@@ -21,6 +24,7 @@ export default function Modal(props : ModalProps) {
   const [todoTitle, setTodoTitle] = useState("");
   const [isInputValid, setIsInputValid] = useState(true);
   const [isTodoCreated, setTodoCreated] = useState(false);
+  const dispatch = useDispatch();
 
   let timeout : NodeJS.Timeout;
   useEffect(() => {
@@ -174,7 +178,50 @@ export default function Modal(props : ModalProps) {
       </div>
     )
   } else if (props.modalAction == ModalState.delete) {
-
+    return (
+      <div 
+        className={`${styles.modal} ${styles.modal__backdrop} ${(props.isVisible) ? styles.modal__visible : styles.modal__nonvisible} `}
+        onClick={() => {
+          setTodoTitle("");
+          props.setVisible(false);
+        }}
+      >
+        <div
+          className={styles.modal_body}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          <div>
+            <p>Are you sure, you want delete this todo</p>
+          </div>
+          <div>
+            <button
+              className="button-green"
+              onClick={() => {
+                props.setVisible(false);
+              }}
+            >
+              No
+            </button>
+            <button
+              className="button-red"
+              onClick={() => {
+                dataFetcher({
+                  method: fetchMethods.delete,
+                  type: fetchType.todos,
+                  id: props.todoToEdit.id
+                })
+                dispatch(deleteTodo(props.todoToEdit.id));
+                props.setVisible(false);
+              }}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   

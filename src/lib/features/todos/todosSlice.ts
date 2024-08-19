@@ -35,6 +35,6 @@ const TodosSlice = createSlice({
 
 //dispatch
 
-export const {initializeTodos, updateStatus} = TodosSlice.actions;
+export const {initializeTodos, updateStatus, addTodo, deleteTodo} = TodosSlice.actions;
 
 export default TodosSlice.reducer;
