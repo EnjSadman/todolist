@@ -88,6 +88,11 @@ export default function Modal(props : ModalProps) {
                 title: todoTitle,
                 completed: false,
               }
+              dataFetcher({
+                method: fetchMethods.post,
+                type: fetchType.todos,
+                requestBody: todo
+              })
               props.setLastTodoId(todo.id);
               setTodoCreated(true);
               setTodoTitle("");
