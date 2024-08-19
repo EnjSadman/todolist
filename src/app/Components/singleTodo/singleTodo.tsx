@@ -14,7 +14,7 @@ interface Props {
   todoEditor: Dispatch<SetStateAction<todosType>>;
 }
 
-function completion(props : todosType) {
+function Completion(props : todosType) {
   const isChecked = props.completed;
   const dispatch = useDispatch();
   if (isChecked) {
@@ -87,7 +87,7 @@ export default function SingleTodo(props : Props) {
       </div>
       <div className={styles.todo__status}>
         {
-          (props.todo.completed) ? completion(props.todo) : completion(props.todo)
+          (props.todo.completed) ? Completion(props.todo) : Completion(props.todo)
         }
         <div className={styles.deletion_box}
           onClick={(event) => {
